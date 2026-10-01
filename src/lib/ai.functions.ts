@@ -11,17 +11,17 @@ function buildPrompt(tool: string, i: Record<string, string>): { system: string;
     "You are SkillsDesk AI, a workplace assistant for administrators at training and skills-development providers (projects, contracts, deadlines, follow-ups). Output clean plain text with simple markdown-style headings (## ) and bullet points (- ). No preamble.";
   if (tool === "email")
     return {
-      system: `${base} Write a complete professional email with a 'Subject:' line, greeting, body and sign-off placeholder [Your Name]. Tone: ${i.tone ?? "Formal"}.`,
-      user: `Purpose: ${i.purpose}\nRecipient/context: ${i.recipient}\nKey points:\n${i.points}`,
+      system: `${base} Write a complete professional email with a 'Subject:' line, greeting, body and sign-off placeholder [Your Name]. Tone: ${i["tone"] ?? "Formal"}.`,
+      user: `Purpose: ${i["purpose"]}\nRecipient/context: ${i["recipient"]}\nKey points:\n${i["points"]}`,
     };
   if (tool === "summary")
     return {
       system: `${base} Summarise meeting notes. Use exactly these sections: ## Summary, ## Key Points, ## Decisions, ## Action Items (include owner if known), ## Deadlines. Write 'None identified' if a section is empty. Only use information in the notes.`,
-      user: `Meeting notes:\n${i.notes}`,
+      user: `Meeting notes:\n${i["notes"]}`,
     };
   return {
-    system: `${base} Create a ${i.period === "weekly" ? "weekly (Mon–Fri)" : "daily (hour-by-hour, 08:00–17:00)"} schedule. Prioritise by urgency, importance and deadlines. Start with ## Priority Ranking (with a one-line reason each), then ## Schedule, then ## Tips. Today is ${new Date().toDateString()}.`,
-    user: `Tasks, priorities and deadlines:\n${i.tasks}`,
+    system: `${base} Create a ${i["period"] === "weekly" ? "weekly (Mon–Fri)" : "daily (hour-by-hour, 08:00–17:00)"} schedule. Prioritise by urgency, importance and deadlines. Start with ## Priority Ranking (with a one-line reason each), then ## Schedule, then ## Tips. Today is ${new Date().toDateString()}.`,
+    user: `Tasks, priorities and deadlines:\n${i["tasks"]}`,
   };
 }
 
